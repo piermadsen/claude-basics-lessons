@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheat sheet: Claude Projects | Pier Madsen</title>
+<meta name="description" content="Claude Projects on one printable page: what a Project is, when to make one, how to build one in 4 steps, and how to keep it working.">
+<style>
+  :root { --ink:#16181D; --ink2:#3A3F47; --accent:#F2A93B; --accent30:#FCE5BD; --grey:#F4F2EF; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #EEEBE6; color: var(--ink); font: 13.5px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .page { position: relative; width: 8.5in; min-height: 11in; margin: 24px auto; background: #fff; padding: 0.5in; }
+  .top { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid var(--accent); padding-bottom: 12px; margin-bottom: 16px; }
+  .overline { font-weight: 700; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); margin: 0 0 4px; }
+  h1 { font: 700 30px/1.1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }
+  .top .site { font-weight: 700; font-size: 13px; color: var(--ink); text-decoration: none; }
+  h2 { font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 6px; line-height: 1.3; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .box { background: var(--grey); border-radius: 4px; padding: 10px 14px; }
+  .box.green { background: var(--accent30); }
+  .box.wide { grid-column: 1 / -1; }
+  p { margin: 0 0 6px; }
+  ol, ul { margin: 0; padding-left: 18px; }
+  li { margin: 2px 0; }
+  .legal { position: absolute; left: 0.5in; right: 0.5in; bottom: 0.33in; height: 32px; display: flex; align-items: center; font-size: 11px; }
+  .print { text-align: center; margin: 16px 0 0; }
+  .print button { font: 700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--ink); color: #fff; border: 0; border-radius: 4px; padding: 10px 18px; min-height: 44px; cursor: pointer; }
+  @media (max-width: 860px) {
+    body { background: #fff; }
+    .page { width: auto; min-height: 0; margin: 0; padding: 20px 16px 72px; }
+    .grid { grid-template-columns: 1fr; }
+    .top { flex-direction: column-reverse; align-items: flex-start; gap: 12px; }
+    h1 { font-size: 26px; }
+    .legal { left: 16px; bottom: 16px; }
+  }
+  @media print {
+    @page { size: letter; margin: 0; }
+    body { background: #fff; }
+    .page { margin: 0; width: 8.5in; height: 11in; min-height: 0; overflow: hidden; }
+    .print { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="print"><button type="button" onclick="window.print()">Print or save as PDF</button></div>
+<div class="page">
+  <div class="top">
+    <div>
+      <p class="overline">Cheat sheet</p>
+      <h1>Claude Projects on one page</h1>
+    </div>
+    <a class="site" href="https://piermadsen.com">piermadsen.com</a>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h2>What a Project is</h2>
+      <p><strong>Instructions</strong> (how to do the job) + <strong>files</strong> (what to know and copy). Every chat in the Project starts with both.</p>
+      <p>Claude can't see your <strong>other chats</strong> or the Project's <strong>name and description</strong>. Put what matters in the instructions or files.</p>
+    </div>
+    <div class="box">
+      <h2>When to make one</h2>
+      <ul>
+        <li>You keep re-explaining the same background or re-uploading the same files.</li>
+        <li>One Project per thing you make over and over.</li>
+        <li>Brainstorming something new? Use a fresh chat instead.</li>
+      </ul>
+    </div>
+
+    <div class="box wide">
+      <h2>Build one in 4 steps</h2>
+      <ol>
+        <li><strong>Create:</strong> Projects, then New Project. Name it, skip "Use a folder", Create project. Context, +, Upload from device: one <strong>good example</strong>.</li>
+        <li><strong>Instructions:</strong> new chat in the Project (Chat, not Cowork), paste the Project Starter, answer one question at a time. Copy the box, then + next to Instructions, paste, Save instructions.</li>
+        <li><strong>Test:</strong> new chat, attach your starting point with +, ask for the thing. Paste the Check it prompt. Add its one sentence to the instructions, save, try again in a new chat.</li>
+        <li><strong>Share (optional):</strong> Share (top right), add a teammate, Can view. They see instructions and files, not your chats.</li>
+      </ol>
+    </div>
+
+    <div class="box green">
+      <h2>Every Project gets these 2 rules</h2>
+      <p>"If information is missing, say so and ask. Never invent numbers or facts."</p>
+      <p>"Mark anything you inferred."</p>
+    </div>
+    <div class="box green">
+      <h2>Your name is on it: 4 checks</h2>
+      <ol>
+        <li>Read it, all of it.</li>
+        <li>Understand it: could you explain it?</li>
+        <li>Validate it: facts match, nothing hallucinated.</li>
+        <li>Make it yours: your words. You'd sign it.</li>
+      </ol>
+    </div>
+
+    <div class="box">
+      <h2>Keep it working</h2>
+      <ul>
+        <li>Use it 3 times this week.</li>
+        <li>It misses? <strong>Fix the instructions, not the chat.</strong> Add one specific sentence.</li>
+        <li>A chat drifts? Start a new one.</li>
+        <li>Great output? Add it to the files as an example.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>Where things are</h2>
+      <ul>
+        <li><strong>Projects:</strong> left sidebar.</li>
+        <li><strong>Files:</strong> Project page, Context, +, Upload from device. Under 30MB.</li>
+        <li><strong>Instructions:</strong> Project page, + next to Instructions.</li>
+        <li><strong>Attach to one chat:</strong> + in the message box.</li>
+        <li><strong>Shared with you:</strong> Projects, Shared with you tab.</li>
+        <li><strong>Memory</strong> (optional): Settings, Memory.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="legal">Using work files? Follow your company's AI policy, and leave out personal details about customers.</div>
+</div>
+</body>
+</html>

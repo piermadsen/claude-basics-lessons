@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build Your First Claude Project | Pier Madsen</title>
+<meta name="description" content="A hands-on guide to Claude basics and Claude Projects. Learn models, effort, prompts, context and memory, then build a Project for something you make over and over.">
+<meta name="author" content="Pier Madsen">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Build Your First Claude Project">
+<meta property="og:description" content="A hands-on guide: Claude basics first, then build a Project for something you make over and over. Slides plus a kit with every prompt.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="deck.css?v=1">
+</head>
+<body>
+
+<div class="stage"><div class="deck">
+
+<!-- COVER -->
+<section class="slide dark cover" data-at="0" data-block="Start" data-title="Cover">
+  <div class="particles" aria-hidden="true"><span style="--x:52%;--y:73%;--s:6px;--d:12s;--delay:-0.9s;--dx:87px;--dy:-85px;--o:0.35;--c:#F2A93B"></span><span style="--x:98%;--y:20%;--s:8px;--d:10s;--delay:-9.7s;--dx:-72px;--dy:-168px;--o:0.8;--c:#F2A93B"></span><span style="--x:25%;--y:61%;--s:6px;--d:16s;--delay:-3.0s;--dx:-14px;--dy:-143px;--o:0.55;--c:#FFFFFF"></span><span style="--x:38%;--y:75%;--s:6px;--d:13s;--delay:-4.7s;--dx:-13px;--dy:-87px;--o:0.45;--c:#F2A93B"></span><span style="--x:93%;--y:28%;--s:7px;--d:13s;--delay:-10.6s;--dx:52px;--dy:-133px;--o:0.35;--c:#F2A93B"></span><span style="--x:39%;--y:51%;--s:5px;--d:10s;--delay:-2.2s;--dx:65px;--dy:-89px;--o:0.8;--c:#F2A93B"></span><span style="--x:63%;--y:13%;--s:8px;--d:8s;--delay:-7.9s;--dx:-20px;--dy:-169px;--o:0.65;--c:#F2A93B"></span><span style="--x:19%;--y:93%;--s:8px;--d:10s;--delay:-9.7s;--dx:87px;--dy:-149px;--o:0.45;--c:#F2A93B"></span><span style="--x:5%;--y:15%;--s:4px;--d:12s;--delay:-5.6s;--dx:39px;--dy:-80px;--o:0.55;--c:#FFFFFF"></span><span style="--x:41%;--y:46%;--s:8px;--d:14s;--delay:-10.9s;--dx:52px;--dy:-181px;--o:0.35;--c:#F2A93B"></span><span style="--x:54%;--y:93%;--s:5px;--d:9s;--delay:-0.8s;--dx:73px;--dy:-132px;--o:0.65;--c:#F2A93B"></span><span style="--x:44%;--y:48%;--s:4px;--d:16s;--delay:-14.2s;--dx:-88px;--dy:-114px;--o:0.35;--c:#FFFFFF"></span><span style="--x:50%;--y:76%;--s:7px;--d:7s;--delay:-0.8s;--dx:-31px;--dy:-80px;--o:0.35;--c:#F2A93B"></span><span style="--x:50%;--y:15%;--s:8px;--d:16s;--delay:-8.7s;--dx:43px;--dy:-78px;--o:0.45;--c:#FFFFFF"></span><span style="--x:33%;--y:96%;--s:6px;--d:10s;--delay:-0.4s;--dx:61px;--dy:-171px;--o:0.35;--c:#F2A93B"></span><span style="--x:65%;--y:65%;--s:8px;--d:9s;--delay:-2.7s;--dx:-3px;--dy:-89px;--o:0.65;--c:#F2A93B"></span><span style="--x:42%;--y:20%;--s:3px;--d:14s;--delay:-6.6s;--dx:-52px;--dy:-156px;--o:0.55;--c:#F2A93B"></span><span style="--x:80%;--y:69%;--s:3px;--d:12s;--delay:-9.0s;--dx:8px;--dy:-125px;--o:0.35;--c:#F2A93B"></span><span style="--x:76%;--y:12%;--s:7px;--d:16s;--delay:-0.9s;--dx:-32px;--dy:-80px;--o:0.55;--c:#F2A93B"></span><span style="--x:69%;--y:96%;--s:3px;--d:16s;--delay:-9.3s;--dx:47px;--dy:-185px;--o:0.45;--c:#F2A93B"></span><span style="--x:85%;--y:31%;--s:3px;--d:8s;--delay:-7.1s;--dx:4px;--dy:-109px;--o:0.8;--c:#F2A93B"></span><span style="--x:70%;--y:95%;--s:3px;--d:13s;--delay:-5.3s;--dx:-39px;--dy:-137px;--o:0.8;--c:#F2A93B"></span><span style="--x:62%;--y:89%;--s:7px;--d:12s;--delay:-0.4s;--dx:5px;--dy:-112px;--o:0.65;--c:#F2A93B"></span><span style="--x:71%;--y:93%;--s:8px;--d:10s;--delay:-9.6s;--dx:18px;--dy:-90px;--o:0.55;--c:#F2A93B"></span><span style="--x:7%;--y:43%;--s:7px;--d:10s;--delay:-0.3s;--dx:17px;--dy:-199px;--o:0.55;--c:#F2A93B"></span><span style="--x:24%;--y:79%;--s:4px;--d:8s;--delay:-1.2s;--dx:-52px;--dy:-136px;--o:0.8;--c:#F2A93B"></span><span style="--x:49%;--y:50%;--s:6px;--d:15s;--delay:-14.0s;--dx:-78px;--dy:-91px;--o:0.45;--c:#FFFFFF"></span><span style="--x:6%;--y:21%;--s:4px;--d:9s;--delay:-5.2s;--dx:62px;--dy:-183px;--o:0.35;--c:#F2A93B"></span><span style="--x:46%;--y:26%;--s:5px;--d:16s;--delay:-14.9s;--dx:-60px;--dy:-84px;--o:0.65;--c:#F2A93B"></span><span style="--x:82%;--y:30%;--s:5px;--d:11s;--delay:-4.5s;--dx:70px;--dy:-71px;--o:0.45;--c:#F2A93B"></span><span style="--x:65%;--y:88%;--s:6px;--d:7s;--delay:-1.4s;--dx:-46px;--dy:-121px;--o:0.55;--c:#F2A93B"></span><span style="--x:27%;--y:45%;--s:8px;--d:14s;--delay:-13.4s;--dx:29px;--dy:-112px;--o:0.55;--c:#FFFFFF"></span><span style="--x:13%;--y:18%;--s:5px;--d:12s;--delay:-5.8s;--dx:90px;--dy:-121px;--o:0.55;--c:#F2A93B"></span><span style="--x:68%;--y:73%;--s:4px;--d:9s;--delay:-5.8s;--dx:52px;--dy:-177px;--o:0.55;--c:#F2A93B"></span><span style="--x:56%;--y:81%;--s:5px;--d:13s;--delay:-7.8s;--dx:17px;--dy:-105px;--o:0.45;--c:#FFFFFF"></span><span style="--x:88%;--y:60%;--s:7px;--d:13s;--delay:-3.0s;--dx:-31px;--dy:-160px;--o:0.35;--c:#FFFFFF"></span><span style="--x:40%;--y:62%;--s:6px;--d:10s;--delay:-1.0s;--dx:-58px;--dy:-198px;--o:0.35;--c:#F2A93B"></span><span style="--x:49%;--y:81%;--s:8px;--d:12s;--delay:-3.2s;--dx:30px;--dy:-180px;--o:0.35;--c:#F2A93B"></span><span style="--x:87%;--y:16%;--s:7px;--d:15s;--delay:-10.7s;--dx:54px;--dy:-89px;--o:0.8;--c:#FFFFFF"></span><span style="--x:43%;--y:6%;--s:5px;--d:12s;--delay:-2.2s;--dx:47px;--dy:-133px;--o:0.65;--c:#F2A93B"></span><span style="--x:97%;--y:88%;--s:7px;--d:16s;--delay:0.0s;--dx:87px;--dy:-107px;--o:0.45;--c:#F2A93B"></span><span style="--x:11%;--y:50%;--s:4px;--d:10s;--delay:-9.7s;--dx:-89px;--dy:-113px;--o:0.45;--c:#F2A93B"></span><span style="--x:52%;--y:67%;--s:3px;--d:8s;--delay:-1.1s;--dx:5px;--dy:-105px;--o:0.65;--c:#FFFFFF"></span><span style="--x:64%;--y:70%;--s:6px;--d:9s;--delay:-2.4s;--dx:-22px;--dy:-161px;--o:0.55;--c:#F2A93B"></span><span style="--x:42%;--y:69%;--s:4px;--d:12s;--delay:-0.6s;--dx:67px;--dy:-91px;--o:0.35;--c:#F2A93B"></span><span style="--x:94%;--y:86%;--s:3px;--d:10s;--delay:-1.1s;--dx:14px;--dy:-168px;--o:0.35;--c:#F2A93B"></span><span style="--x:36%;--y:58%;--s:4px;--d:10s;--delay:-9.7s;--dx:-5px;--dy:-90px;--o:0.35;--c:#F2A93B"></span><span style="--x:2%;--y:5%;--s:4px;--d:8s;--delay:-5.5s;--dx:-25px;--dy:-162px;--o:0.35;--c:#F2A93B"></span><span style="--x:46%;--y:45%;--s:3px;--d:14s;--delay:-7.0s;--dx:63px;--dy:-101px;--o:0.35;--c:#F2A93B"></span><span style="--x:65%;--y:64%;--s:5px;--d:14s;--delay:-4.5s;--dx:51px;--dy:-177px;--o:0.8;--c:#F2A93B"></span><span style="--x:20%;--y:30%;--s:8px;--d:14s;--delay:-13.7s;--dx:74px;--dy:-83px;--o:0.8;--c:#F2A93B"></span><span style="--x:56%;--y:26%;--s:8px;--d:15s;--delay:-9.5s;--dx:55px;--dy:-103px;--o:0.35;--c:#FFFFFF"></span><span style="--x:37%;--y:58%;--s:3px;--d:8s;--delay:0.0s;--dx:-22px;--dy:-141px;--o:0.45;--c:#F2A93B"></span><span style="--x:70%;--y:12%;--s:5px;--d:7s;--delay:-4.7s;--dx:37px;--dy:-146px;--o:0.65;--c:#F2A93B"></span><span style="--x:80%;--y:20%;--s:8px;--d:13s;--delay:-3.1s;--dx:-47px;--dy:-89px;--o:0.45;--c:#F2A93B"></span><span style="--x:76%;--y:55%;--s:7px;--d:15s;--delay:-7.3s;--dx:89px;--dy:-78px;--o:0.65;--c:#F2A93B"></span><span style="--x:83%;--y:50%;--s:4px;--d:9s;--delay:-1.0s;--dx:-2px;--dy:-74px;--o:0.45;--c:#F2A93B"></span><span style="--x:12%;--y:64%;--s:4px;--d:13s;--delay:-3.5s;--dx:-42px;--dy:-153px;--o:0.8;--c:#F2A93B"></span><span style="--x:43%;--y:21%;--s:4px;--d:11s;--delay:-5.4s;--dx:77px;--dy:-128px;--o:0.35;--c:#F2A93B"></span><span style="--x:43%;--y:61%;--s:4px;--d:15s;--delay:-12.3s;--dx:-85px;--dy:-139px;--o:0.65;--c:#F2A93B"></span><span style="--x:28%;--y:81%;--s:5px;--d:7s;--delay:-1.8s;--dx:-60px;--dy:-83px;--o:0.45;--c:#F2A93B"></span><span style="--x:47%;--y:26%;--s:5px;--d:8s;--delay:-6.3s;--dx:-75px;--dy:-166px;--o:0.45;--c:#F2A93B"></span><span style="--x:87%;--y:40%;--s:3px;--d:16s;--delay:-2.0s;--dx:-68px;--dy:-76px;--o:0.35;--c:#F2A93B"></span><span style="--x:24%;--y:80%;--s:4px;--d:12s;--delay:-2.4s;--dx:31px;--dy:-161px;--o:0.55;--c:#F2A93B"></span><span style="--x:33%;--y:97%;--s:5px;--d:15s;--delay:-6.4s;--dx:66px;--dy:-162px;--o:0.35;--c:#F2A93B"></span><span style="--x:30%;--y:19%;--s:7px;--d:11s;--delay:-3.7s;--dx:-17px;--dy:-162px;--o:0.35;--c:#F2A93B"></span><span style="--x:88%;--y:15%;--s:6px;--d:14s;--delay:-10.3s;--dx:0px;--dy:-76px;--o:0.65;--c:#FFFFFF"></span><span style="--x:12%;--y:49%;--s:7px;--d:8s;--delay:-6.5s;--dx:88px;--dy:-85px;--o:0.45;--c:#F2A93B"></span><span style="--x:18%;--y:17%;--s:6px;--d:16s;--delay:-7.2s;--dx:38px;--dy:-131px;--o:0.45;--c:#F2A93B"></span><span style="--x:78%;--y:32%;--s:5px;--d:14s;--delay:-1.8s;--dx:-12px;--dy:-101px;--o:0.65;--c:#F2A93B"></span><span style="--x:18%;--y:14%;--s:3px;--d:14s;--delay:-9.1s;--dx:-90px;--dy:-120px;--o:0.35;--c:#F2A93B"></span><span style="--x:5%;--y:49%;--s:4px;--d:10s;--delay:-1.0s;--dx:9px;--dy:-80px;--o:0.35;--c:#F2A93B"></span></div>
+  <span class="overline">A hands-on guide</span>
+  <h1>Build your first Claude Project</h1>
+  <p class="cover-sub">Claude basics first, then build a Project for something you make over and over. About 70 minutes, mostly hands-on.</p>
+  <p class="cover-meta">Open the kit in another tab: <a data-kitlink class="kitlink"></a><br>Use the <strong>Claude desktop app</strong> or claude.ai. Arrow keys move between slides.</p>
+  <p class="author">By Pier Madsen, <a href="https://piermadsen.com" target="_blank" rel="noopener">piermadsen.com</a></p>
+  <aside class="notes"><ul>
+      <li>Presenting this to a group? Press P for a presenter window with these notes, a session clock and the sprint timers. Press F for full screen.</li>
+      <li>Ask people to open the kit link before you start. Every step and prompt is there.</li>
+    </ul></aside>
+</section>
+
+<!-- PLAN -->
+<section class="slide dark titlecard" data-at="0" data-block="1. Claude basics" data-title="The plan" data-kit>
+  <h2>The plan</h2>
+  <div class="cols parts" style="--n:2">
+    <div class="card green"><h3>Part 1: Claude basics</h3><p>Models, effort, better prompts, fixing results, context, memory</p></div>
+    <div class="card"><h3>Part 2: Your first Project</h3><p>Sprint 1 create it, Sprint 2 instructions, Sprint 3 test and fix, Sprint 4 use it for real</p></div>
+  </div>
+  <p style="margin-top:32px"><strong>Before Part 2, have two files ready:</strong> one good example of something you make often, and the raw input for the next one (notes, bullets or numbers). The build menu has ideas.</p>
+  <aside class="notes"><ul>
+      <li>Two parts. Part 1 is about 20 minutes of basics that make every chat better, Project or not. Part 2 is the main event: a working Project for something you make over and over.</li>
+      <li>The format: a short explanation, then you do it in your own Claude with a timer. Every step and prompt is in the kit.</li>
+      <li>If a part feels familiar, skim it and go deeper on your own.</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: MODELS -->
+<section class="slide" data-at="0.5" data-block="1. Claude basics" data-title="Basics: pick the right model">
+  <h2>Pick the right model for the job</h2>
+  <p>Click the model name next to the send button. The menu remembers your last choice.</p>
+  <div class="cols models" style="--n:4">
+    <div class="card"><h3>Haiku</h3><p class="tag">Fastest, cheapest</p><p class="ex">Fix a sentence, summarize an email, reformat a list.</p><p class="rec">A good daily driver for light work.</p></div>
+    <div class="card green"><h3>Sonnet</h3><p class="tag">Balanced</p><p class="ex">Draft an email or a recap, summarize a document, answer questions about a file.</p><p class="rec">Your standard for everyday, non-technical work.</p></div>
+    <div class="card"><h3>Opus</h3><p class="tag">Slower, smarter, uses more</p><p class="ex">Work through a long report or a big spreadsheet, plan something with many steps.</p><p class="rec">Your standard for complex, technical work and analysis.</p></div>
+    <div class="card"><h3>Fable</h3><p class="tag">Slowest, "smartest", burns through usage</p><p class="ex">Deep research across many sources, strategy, analysis where getting it right matters most.</p><p class="rec">Only for the toughest problems. If Opus can't get there, give Fable a shot.</p></div>
+  </div>
+  <p class="caption" style="margin-top:24px">Keep an eye on your usage in Settings, then Usage.</p>
+  <aside class="notes"><ul>
+      <li>Most people never touch this menu. It's the easiest upgrade in Claude.</li>
+      <li>Match the model to the job: Haiku for a quick fix, Sonnet for most of your day, Opus for more complex work, deeper analysis and harder thinking, Fable only for the toughest problems.</li>
+      <li>For example: Sonnet for a client follow-up or a meeting summary. Opus for a month of data, a messy spreadsheet, or planning a quarterly review. Haiku for "fix this sentence".</li>
+      <li>Bigger models are slower and use more of your allowance. Settings, then Usage, shows where you stand.</li>
+      <li>The menu remembers your last pick. If you switched to Opus for one big job, switch back after.</li>
+      <li>"What should my default be?" Sonnet.</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: EFFORT -->
+<section class="slide" data-at="2.5" data-block="1. Claude basics" data-title="Basics: what is effort?">
+  <h2>What is "effort"?</h2>
+  <p>Effort is how much Claude thinks before it answers. More thinking is slower and uses more; less is faster and lighter. Find it in the model menu, under <strong>Effort</strong>.</p>
+  <div class="scale">
+    <div><h3>Low</h3><p>Quick, routine asks.</p></div>
+    <div><h3>Medium</h3><p>Routine tasks. Faster, and keeps usage lower.</p></div>
+    <div class="on"><h3>High</h3><p>The best balance of quality and speed.</p></div>
+    <div><h3>Extra high</h3><p>Deeper thinking for hard, multi-step problems. Slower than High.</p></div>
+    <div><h3>Max</h3><p>Rarely. Very slow, and it can overthink.</p></div>
+  </div>
+  <ul class="effort-rules">
+    <li><strong>Too slow or long-winded?</strong> Drop to Medium or Low.</li>
+    <li><strong>Careful with Max,</strong> even for technical work. Like people, Claude can overthink, and the result can get worse.</li>
+  </ul>
+  <aside class="notes"><ul>
+      <li>Effort is how long Claude thinks before it answers. It sits in the same menu as the model.</li>
+      <li>My rule: set it to High and leave it. That's the best balance of quality and speed.</li>
+      <li>Drop to Medium or Low when it's slow or long-winded on simple things, like rewording an email.</li>
+      <li>Shallow answer on a hard problem? Try Extra high before you rewrite the prompt. More thinking often fixes it.</li>
+      <li>Max is rarely worth it, even for technical work. It's very slow, and like people, Claude can overthink a problem and land somewhere worse.</li>
+      <li>Curious how it got an answer? Click "Thinking" above the reply.</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: A GOOD PROMPT (Claude 101 L2) -->
+<section class="slide" data-at="4" data-block="1. Claude basics" data-title="Basics: a good prompt has three parts">
+  <h2>A good prompt has three parts</h2>
+  <div class="split">
+    <div>
+      <ol class="steps parts3">
+        <li><strong>Set the stage.</strong> Who you are, your goal, and the background.</li>
+        <li><strong>Define the task.</strong> Exactly what you want Claude to do.</li>
+        <li><strong>Specify the rules.</strong> Length, tone, format, and an example if you have one.</li>
+      </ol>
+      <p class="caption">Brief it like a smart coworker on their first day.</p>
+    </div>
+    <div>
+      <div class="card ptry"><h3>Weak</h3><p>"Write an invite email for our next AI lunch-and-learn."</p></div>
+      <div class="card ptry"><h3>Better</h3><p><span class="p1">I run a monthly lunch-and-learn on AI tools for about 30 coworkers, most of them new to AI.</span> <span class="p2">Write the invite email for next month's session on Claude Projects.</span> <span class="p3">Under 120 words, friendly and plain, no hype. Start with what they'll be able to do afterward, then the date and the meeting link.</span></p></div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>This structure comes straight from Anthropic's Claude 101 course: set the stage, define the task, specify the rules.</li>
+      <li>Try it: send the weak prompt in one chat and the better one in another, then compare. What did Claude have to guess in the first one?</li>
+      <li>"Prompt engineering" sounds technical. For everyday work it just means briefing Claude like a smart coworker on their first day: capable, but they don't know your clients, your audience or your standards.</li>
+      <li>Setting the stage is the part most people skip. Who you are, who it's for and why it matters change the whole answer.</li>
+      <li>Rules cover length, tone and format. The strongest rule is an example: if you have one you liked, paste it.</li>
+      <li>The weak one isn't wrong, it's generic. Claude filled every gap with the most average guess.</li>
+      <li>Hold on to this. In Part 2, a Project saves this whole brief so you never retype it.</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: WHEN THE RESULT IS OFF (Claude 101 L3) -->
+<section class="slide" data-at="6" data-block="1. Claude basics" data-title="Basics: when the result is off">
+  <h2>When the result is off</h2>
+  <div class="split">
+    <table class="menu fixes">
+      <tr><th>If it's...</th><th>Do this</th></tr>
+      <tr><td><strong>Too generic</strong></td><td>Add who it's for, your role and your limits.</td></tr>
+      <tr><td><strong>The wrong length</strong></td><td>Say the length: "under 120 words", "3 bullets".</td></tr>
+      <tr><td><strong>The wrong format</strong></td><td>Show, don't just tell: paste an example.</td></tr>
+      <tr><td><strong>The wrong tone</strong></td><td>Describe it plainly ("friendly, not salesy") and add an example.</td></tr>
+      <tr><td><strong>Confident but wrong</strong></td><td>Check it. Ask where it got that, or what it's unsure about.</td></tr>
+    </table>
+    <div>
+      <div class="card"><h3>First drafts are starting points</h3><p>Reply with specific feedback: what to change, and why. "Under 120 words" works better than "make it shorter".</p></div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>These five come from Claude 101. Almost every disappointing answer is one of them.</li>
+      <li>Try it on the weak result from the last slide. Reply with one specific fix: "It's for about 30 coworkers who are new to AI. Keep it under 120 words and lead with what they'll be able to do."</li>
+      <li>The pattern is to say exactly what to change. "Under 120 words" beats "shorter". "Friendly, not salesy" beats "better tone".</li>
+      <li>Showing beats telling. If the format is wrong, paste an example of the format you want.</li>
+      <li>Confident but wrong is the one to watch. Claude can sound sure and still be wrong, especially with names, numbers and dates. Ask "where did you get that?" or "what are you unsure about?"</li>
+      <li>If a reply goes sideways, you can edit your last message and resend it instead of piling corrections on top.</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: ANOTHER WAY TO WORK -->
+<section class="slide" data-at="8" data-block="1. Claude basics" data-title="Basics: another way to work">
+  <h2>Another way to work: think first, then start clean</h2>
+  <div class="flow">
+    <div class="card"><h3>Dump it</h3><p>Paste the Brain dump prompt, then everything you know. Messy is fine.</p></div>
+    <div class="arrow" aria-hidden="true">&rarr;</div>
+    <div class="card"><h3>Claude interviews you</h3><p>One question at a time, each with its best guess.</p></div>
+    <div class="arrow" aria-hidden="true">&rarr;</div>
+    <div class="card"><h3>It writes the prompt</h3><p>All three parts, in a box you can copy.</p></div>
+    <div class="arrow" aria-hidden="true">&rarr;</div>
+    <div class="card green"><h3>Paste into a new chat</h3><p>A clean start, with only what matters.</p></div>
+  </div>
+  <p class="caption" style="margin-top:32px">Handy when a task is big or fuzzy. The Brain dump prompt is in the kit.</p>
+  <aside class="notes"><ul>
+      <li>This one is optional: a way to work, not a rule. Use it when a task is big or you haven't figured it out yet.</li>
+      <li>Chat 1 is for thinking out loud. Claude interviews you one question at a time and guesses first, so you mostly say "yes" or "no, it's this".</li>
+      <li>Watch for the line of assumptions before the prompt. That's where it tells you what it guessed, so you can catch a wrong one.</li>
+      <li>Chat 2 gets only the finished brief: no half-ideas, no dead ends. Two slides from now shows why that matters.</li>
+      <li>Talking is faster than typing for a dump, so use dictation if you have it.</li>
+      <li>"Write it now" is the escape hatch when you're short on time.</li>
+      <li>I use my own version of this before anything big. It grills me until the plan is clear. Once you use it a lot, it's a good candidate for a Skill.</li>
+      <li>The same interview move comes back in Part 2, when Claude writes your Project's instructions.</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: YOUR TURN -->
+<section class="slide" data-at="9.5" data-block="1. Claude basics" data-title="Basics: your turn, brain dump" data-kit>
+  <span class="badge">Your turn</span>
+  <h2>Brain dump, then a clean chat</h2>
+  <div class="split">
+    <ol class="steps">
+      <li>New chat, with <strong>Chat</strong> selected. Paste the <strong>Brain dump prompt</strong> from the kit.</li>
+      <li>Under it, dump everything about a task you need to do this week. Messy is fine.</li>
+      <li>Answer Claude's questions. "You decide" is fine.</li>
+      <li>Copy the prompt from its box. Open a <strong>new</strong> chat, paste it, send.</li>
+    </ol>
+    <div class="timerbox" data-seconds="300" data-checkpoints="120:Copy the prompt into a new chat now." data-hint="Still answering questions? Type &quot;write it now&quot;.">
+      <div class="timer">5:00</div>
+      <p class="checkpoint"></p>
+      <button type="button">Start timer</button>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Pick something real for this week: an email you've been putting off, a plan, a summary. Not your Project; that's Part 2.</li>
+      <li>No idea? Next week's team meeting agenda, or a note to a client you need to send.</li>
+      <li>Messy is the point. Don't polish the dump.</li>
+      <li>You don't need to finish the work itself. The goal is to feel how much better a clean, complete prompt does.</li>
+      <li>At 2:00 left: "Still answering questions? Type write it now."</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: CONTEXT (smart zone / dumb zone, after AI Hero) -->
+<section class="slide" data-at="14.5" data-block="1. Claude basics" data-title="Basics: context, the smart zone and the dumb zone">
+  <h2>Every chat fills up</h2>
+  <p>Everything in a chat takes up room in Claude's working memory, its <strong>context</strong>. Back-and-forth is fine, but past a point Claude gets worse at using it all.</p>
+  <div class="ctx">
+    <span></span><div class="ctx-zones"><span class="z-smart">Smart zone</span><span class="z-dumb">Dumb zone</span></div>
+    <span class="ctx-lbl">Normal back-and-forth</span>
+    <div class="ctx-bar"><i class="c-setup" style="width:5%"></i><i class="c-you" style="width:6%"></i><i class="c-reply" style="width:9%"></i><i class="c-you" style="width:5%"></i><i class="c-reply" style="width:10%"></i><i class="c-you" style="width:4%"></i><i class="c-reply" style="width:8%"></i></div>
+    <span class="ctx-lbl">Very long chat, big files</span>
+    <div class="ctx-bar"><i class="c-setup" style="width:5%"></i><i class="c-file" style="width:20%"></i><i class="c-you" style="width:5%"></i><i class="c-reply" style="width:11%"></i><i class="c-you" style="width:5%"></i><i class="c-reply" style="width:12%"></i><i class="c-you" style="width:4%"></i><i class="c-reply" style="width:12%"></i></div>
+  </div>
+  <ul class="ctx-key">
+    <li><i class="c-setup"></i>Setup: instructions, memory</li>
+    <li><i class="c-you"></i>Your messages</li>
+    <li><i class="c-reply"></i>Claude's replies</li>
+    <li><i class="c-file"></i>Files</li>
+  </ul>
+  <div class="cols ctx-cards" style="--n:2">
+    <div class="card">
+      <h3>Compacting</h3>
+      <div class="ctx-bar mini"><i class="c-setup"></i><i class="c-file sliver"></i><i class="c-you sliver"></i><i class="c-reply sliver"></i></div>
+      <p>A full chat gets squeezed into a summary ("organizing its thoughts"). Details get lost.</p>
+    </div>
+    <div class="card green">
+      <h3>New chat</h3>
+      <div class="ctx-bar mini"><i class="c-setup"></i></div>
+      <p>Back to a clean start, in the smart zone. Bring only what matters with you.</p>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Every new chat is like an "innie" from Severance: it walks in knowing nothing about your other chats, only what's in the room. That's a feature: a clean start every time.</li>
+      <li>Everything in a chat fills Claude's working memory, its context: your messages, its replies, your files.</li>
+      <li>Matt Pocock at AI Hero calls the early part the smart zone and the late part the dumb zone. Normal back-and-forth is fine. Once a chat is most of the way full, Claude gets worse at using what's in it.</li>
+      <li>Big files and very long chats fill it fastest. A 100-page PDF takes far more room than a page of notes.</li>
+      <li>When a chat is nearly full, Claude compacts it: it summarizes the older messages and keeps going, and you'll see "organizing its thoughts". Summaries drop details, and long chats use more of your allowance.</li>
+      <li>The habit: long chat, Claude forgetting what you told it, or "organizing its thoughts"? Start a new chat and bring only what matters. That's exactly what the brain dump does.</li>
+      <li>One thing does carry into every new chat, and that's memory.</li>
+    </ul></aside>
+</section>
+
+<!-- BASICS: MEMORY -->
+<section class="slide" data-at="16.5" data-block="1. Claude basics" data-title="Memory: turn it on and tune it" data-kit>
+  <h2>Set up memory so Claude knows you</h2>
+  <div class="split">
+    <div>
+      <p>With memory on, Claude keeps context from your chats, like your role, your work and how you like things written, and brings it into new chats.</p>
+      <ul>
+        <li>Make sure you have <strong>memory turned on</strong>.</li>
+        <li>Look through what it remembers. Delete what isn't relevant. To add something, tell Claude in any chat: "Remember that..."</li>
+        <li>To keep one chat out of memory: start a new chat, click <strong>+</strong> in the message box, and switch <strong>Memory</strong> off before you send your first message.</li>
+      </ul>
+    </div>
+    <div class="card green">
+      <h3>Where to find it</h3>
+      <ol class="steps">
+        <li>Click your name or initials (bottom left), then <strong>Settings</strong>.</li>
+        <li>Open <strong>Memory</strong>.</li>
+        <li>Turn on <strong>Generate memory from chats</strong>.</li>
+        <li>Open <strong>Topics</strong> to review and edit.</li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Memory is the quickest win in Claude. One switch, and new chats already know your role, your work and how you like things written.</li>
+      <li>Depending on your plan, it may be off until you turn it on.</li>
+      <li>It's saved as Topics you can read, edit or delete. Worth a two-minute cleanup: old projects, wrong details, anything you don't want following you around.</li>
+      <li>You can also tell it directly in any chat, for example: "Remember that I write to clients in a friendly, direct tone."</li>
+      <li>Want one chat kept out of memory? Switch Memory off from the + menu before your first message.</li>
+      <li>Memory knows you, but loosely. It won't hold your exact template or rules. That's what Part 2 is for.</li>
+      <li>Give it about 3 minutes. The steps are in the kit.</li>
+    </ul></aside>
+</section>
+
+<!-- PART 2 TITLE -->
+<section class="slide dark titlecard" data-at="20" data-block="2. Projects" data-title="Part 2: Build your first Project">
+  <h2>Part 2: Build your first Project</h2>
+  <p class="demo-request">Every new chat starts from zero.</p>
+  <p>So you re-explain your role, your client and your format, and paste the same files again. A Project is a workspace where every chat already knows your instructions and your files.</p>
+  <aside class="notes"><ul>
+      <li>Here's the gap memory leaves: it remembers you, but loosely. It won't hold your template, your exact format or your rules.</li>
+      <li>Remember the 3-part prompt? Imagine never typing the stage and the rules again. That's a Project: the brief and your best example, saved once.</li>
+      <li>Ask the room: who has pasted the same background into Claude more than twice this week?</li>
+    </ul></aside>
+</section>
+
+<!-- WHEN -->
+<section class="slide" data-at="21" data-block="2. Projects" data-title="When to make a Project">
+  <h2>You keep re-explaining? Make a Project.</h2>
+  <ul>
+    <li>Make <strong>one Project per thing you make over and over</strong>. A single Project for everything gives generic answers.</li>
+    <li>Brainstorming something new? Use a fresh chat instead.</li>
+  </ul>
+  <div class="cols" style="--n:3; margin-top:24px">
+    <div class="card"><h3>Prompt</h3><p>A one-off request that's gone when the chat ends.</p></div>
+    <div class="card green"><h3>Project</h3><p>A standing setup for one kind of work. That's today.</p></div>
+    <div class="card"><h3>Skill</h3><p>A saved how-to Claude can reuse anywhere. A good next step.</p></div>
+  </div>
+  <aside class="notes"><ul>
+      <li>The test is simple: do you keep re-explaining the same background, or re-uploading the same files? Make a Project.</li>
+      <li>One Project per recurring thing. "Monthly client recap" is a Project. "My work" isn't: a catch-all gives generic answers because Claude can't tell which rules apply.</li>
+      <li>Brainstorming something brand new is still a fresh chat.</li>
+      <li>Prompt, Project, Skill: a prompt is one-off, a Project is a standing setup for one kind of work, and a Skill is a saved how-to Claude can use anywhere. Anthropic puts it as "projects store knowledge, skills perform tasks."</li>
+      <li>Ideas: client recaps, call follow-ups, weekly updates, month-end commentary, answers to the questions new hires always ask.</li>
+    </ul></aside>
+</section>
+
+<!-- MODEL -->
+<section class="slide" data-at="22" data-block="2. Projects" data-title="A Project = instructions + files">
+  <h2>A Project = instructions + files</h2>
+  <div class="where">
+    <div class="where-col">
+      <div class="where-head"><h3>Instructions</h3><p>How Claude should do the job, including the steps and rules.</p></div>
+      <p class="where-label">Rules go here, for example:</p>
+      <ul class="chips">
+        <li>"Lead with the total, then 3 bullets."</li>
+        <li>"Keep it under 150 words."</li>
+        <li>"If a number is missing, ask. Never guess."</li>
+      </ul>
+    </div>
+    <div class="where-col">
+      <div class="where-head"><h3>Files</h3><p>Reference material Claude reads in every chat. It copies the style and format of your examples.</p></div>
+      <p class="where-label">References go here, for example:</p>
+      <ul class="chips files">
+        <li>A past recap you were happy with</li>
+        <li>Your template</li>
+        <li>A product or process one-pager</li>
+      </ul>
+    </div>
+  </div>
+  <p class="where-foot">Every new chat in the Project starts with both.</p>
+  <aside class="notes"><ul>
+      <li>Two parts: instructions are how Claude should do the job; files are what it should know and copy from.</li>
+      <li>Rules go in the instructions and references in the files. A rule buried inside a PDF is easy for Claude to miss.</li>
+      <li>Claude copies an example better than it follows a description. Your best example is your most valuable file.</li>
+      <li>Every new chat in the Project starts with both. But chats don't see each other, so a fix you argue out in one chat is gone in the next. Fix the instructions instead; Sprint 3 practices that.</li>
+      <li>Don't count on Claude reading the Project's name or description. Anything it needs goes in the instructions or files.</li>
+      <li>With memory on, each Project keeps its own memory, marked "Only you". People you share with don't see it.</li>
+      <li>Files can be up to 30MB each, and Claude can search a big Project. Still, a few clear files beat a pile.</li>
+    </ul></aside>
+</section>
+
+<!-- CHOOSE -->
+<section class="slide" data-at="24" data-block="2. Projects" data-title="Choose your project" data-kit>
+  <h2>Choose your project</h2>
+  <div class="split">
+    <div class="menu-wrap">
+      <table class="menu">
+        <tr><th>Project options</th><th>Your "good" example</th><th>Starting point for the next time you need it</th></tr>
+        <tr><td><strong>Email writing assistant</strong></td><td>3 emails you've sent</td><td>Notes from a real meeting this week (or 3-4 bullets from memory)</td></tr>
+        <tr><td>Monthly client recap</td><td>A recap you liked</td><td>This month's totals</td></tr>
+        <tr><td>Call follow-up</td><td>A follow-up you liked</td><td>Notes from a call</td></tr>
+        <tr><td>Weekly update</td><td>One past update</td><td>This week's bullets</td></tr>
+        <tr><td>Month-end commentary</td><td>Last month's</td><td>This month's summary</td></tr>
+        <tr><td>Process explainer</td><td>Any write-up of it</td><td>A question a new person asked</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="timerbox" data-seconds="120" data-hint="Not sure? Take the first row.">
+        <div class="timer">2:00</div>
+        <p class="checkpoint"></p>
+        <button type="button">Start timer</button>
+      </div>
+      <p style="margin-top:16px">Save your example and your starting point in <strong>one folder</strong>. Word, PDF, CSV and text files all work.</p>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Brought your own idea? Use it. Not sure, or no files? Take the top row, the email writing assistant: 3 emails you've sent are the example, and notes or 3-4 bullets from a recent meeting are the starting point.</li>
+      <li>Pick something you'll make again in the next two weeks, so you actually use it.</li>
+      <li>Emails: copy only the part you wrote, not the older thread below it, into a Word doc. Screenshots and saved Outlook .msg files won't work.</li>
+      <li>Using work files? Follow your company's AI policy, and leave out personal details about customers.</li>
+      <li>One screen? Put Claude and the kit side by side.</li>
+    </ul></aside>
+</section>
+
+<!-- SPRINT 1 -->
+<section class="slide" data-at="26" data-block="2. Projects: Sprint 1" data-title="Sprint 1: create it" data-kit>
+  <span class="badge">Sprint 1</span>
+  <h2>Create it and add your example</h2>
+  <div class="split">
+    <div>
+    <ol class="steps">
+      <li><strong>Projects</strong> in the left sidebar, then <strong>New Project</strong>.</li>
+      <li>Name it after what it makes. Leave it Private. <strong>Create project</strong>.</li>
+      <li>Next to <strong>Context</strong>: <strong>+</strong>, then <strong>Upload from device</strong>. Add your good example (a template too, if you have one). Keep your starting point for Sprint 3.</li>
+    </ol>
+    <p class="nofolder"><strong>Don't click "Use a folder."</strong>It makes a local Project that lives only on your computer, and you can't share it.</p>
+    </div>
+    <div>
+      <div class="timerbox" data-seconds="240" data-hint="Can't see the sidebar? Click the icon at the top left.">
+        <div class="timer">4:00</div>
+        <p class="checkpoint"></p>
+        <button type="button">Start timer</button>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Name it after what it makes, like "Monthly client recap", not "My stuff". You'll have several Projects soon.</li>
+      <li>"Use a folder" ties the Project to your computer, and then you can't share it. Skip it. If the page says local projects are only on this computer, make a new one without it.</li>
+      <li>Project files are for every chat. One-off inputs, like this week's notes, go in the chat later.</li>
+      <li>One great example beats ten average files.</li>
+      <li>Upload from your computer, not Google Drive. Drive files only work in private Projects, so they break once you share.</li>
+      <li>Common snags: sidebar collapsed (icon at the top left), file over 30MB, a screenshot or .msg file (paste the text into Word instead).</li>
+    </ul></aside>
+</section>
+
+<!-- INSTRUCTIONS: WHAT YOU GET -->
+<section class="slide" data-at="30" data-block="2. Projects: Sprint 2" data-title="Instructions: how to build them">
+  <h2>Instructions: how to build them</h2>
+  <div class="split">
+    <div>
+      <ol class="steps">
+        <li><strong>Context:</strong> who you are, what it's for, who reads it</li>
+        <li><strong>Process:</strong> the steps, in order</li>
+        <li><strong>Tone and format:</strong> taken from your example</li>
+        <li><strong>Specific requirements:</strong> 3-5 rules, each with a reason</li>
+        <li><strong>When I give you:</strong> what you'll paste in each time, and what Claude does with it. For example: "When I give you my weekly bullets, write my update."</li>
+      </ol>
+    </div>
+    <div class="card green">
+      <h3>Every Project can benefit from these two rules</h3>
+      <p>"If information is missing, say so and ask. Never invent numbers or facts."</p>
+      <p>"Mark anything you inferred."</p>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>This is what the Project Starter hands you in the next sprint, so you'll recognize it.</li>
+      <li>It's Anthropic's structure for Project instructions: Context, Process, Tone and format, Specific requirements, plus a "When I give you" line.</li>
+      <li>"When I give you" is the shortcut. Once it's set, you paste this week's notes and the Project already knows the job.</li>
+      <li>Each rule has a reason. Claude follows a rule better when it knows why, for example "Under 150 words, because they read it on their phone."</li>
+      <li>The two rules on the right make everything checkable: missing info gets flagged and guesses get marked. You'll lean on them in Sprint 4.</li>
+      <li>You don't need these exact headings. It's a solid starting point, not the only way.</li>
+    </ul></aside>
+</section>
+
+<!-- SPRINT 2 -->
+<section class="slide" data-at="31" data-block="2. Projects: Sprint 2" data-title="Sprint 2: instructions" data-kit>
+  <span class="badge">Sprint 2</span>
+  <h2>Have AI help with instructions</h2>
+  <div class="split">
+    <ol class="steps">
+      <li>On your Project page, click <strong>Chat</strong> in the message box (not Cowork).</li>
+      <li>Copy the <strong>Project Starter</strong> from the kit. Paste it. Before sending, replace <strong>[WHAT YOU MAKE]</strong> (wording ideas are in the kit's build menu).</li>
+      <li>Answer Claude's questions, one at a time. "You decide" is fine.</li>
+      <li>Click <strong>Copy</strong> on the box. Click your Project's name at the top. <strong>+</strong> next to <strong>Instructions</strong>, paste, <strong>Save instructions</strong>.</li>
+    </ol>
+    <div class="timerbox" data-seconds="600" data-checkpoints="360:You should be answering Claude's questions now.|150:Copy the box, paste into instructions, Save." data-hint="Too many questions? Say &quot;you decide on the rest and write it now&quot;.">
+      <div class="timer">10:00</div>
+      <p class="checkpoint"></p>
+      <button type="button">Start timer</button>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Nobody should start from a blank box. Claude guesses and you correct, which is much faster than writing from scratch.</li>
+      <li>It's the same interview move as the brain dump in Part 1, aimed at your Project's instructions.</li>
+      <li>"You decide" is a real answer. You can change anything later.</li>
+      <li>Expect 6 to 8 questions. If time gets tight: "You decide on the rest and write it now."</li>
+      <li>Common snags: still on Cowork (Claude starts a long task), copied the whole chat instead of the box, forgot to click Save instructions.</li>
+      <li>The Starter is a good starting point, not the only way. Change the headings or bullets to fit your work.</li>
+    </ul></aside>
+</section>
+
+<!-- LOOP -->
+<section class="slide" data-at="42" data-block="2. Projects: Sprint 3" data-title="Fix the instructions, not the chat">
+  <h2>Fix the instructions, not the chat</h2>
+  <div class="cols" style="--n:4">
+    <div class="card"><h3>Use it</h3><p>New chat, your notes, ask in your own words</p></div>
+    <div class="card"><h3>Check it</h3><p>Check it prompt: accuracy, and a match to your example</p></div>
+    <div class="card green"><h3>Teach it</h3><p>Add one sentence to the instructions</p></div>
+    <div class="card"><h3>Try again</h3><p>New chat, same notes</p></div>
+  </div>
+  <p style="margin-top:32px">Better = closer to your example's format and tone, and nothing hallucinated.</p>
+  <aside class="notes"><ul>
+      <li>Use it, check it, teach it. That's the whole loop, and it's how a Project gets good.</li>
+      <li>A correction in a chat dies with that chat; a sentence in the instructions applies to every chat after.</li>
+      <li>A new chat doesn't remember the old one, so paste or attach the notes again.</li>
+      <li>Not better? Check it once more and add a second sentence. Specific beats general: "Start with the date and time" works better than "be clearer".</li>
+      <li>Don't over-check. Once or twice is enough. Keep asking Claude for problems and it starts inventing them.</li>
+    </ul></aside>
+</section>
+
+<!-- SPRINT 3 -->
+<section class="slide" data-at="43" data-block="2. Projects: Sprint 3" data-title="Sprint 3: use it, check it, teach it" data-kit>
+  <span class="badge">Sprint 3</span>
+  <h2>Use it, check it, teach it</h2>
+  <div class="split">
+    <ol class="steps">
+      <li><strong>Use it:</strong> new chat in your Project, Chat selected. Paste your notes or attach your file with <strong>+</strong>, and ask in your own words: "Write my follow-up from these notes."</li>
+      <li><strong>Check it:</strong> paste the <strong>Check it prompt</strong> from the kit in the same chat. It flags anything wrong or off from your example, and writes one sentence to fix it.</li>
+      <li><strong>Teach it:</strong> copy that sentence. Project page, <strong>+</strong> next to <strong>Instructions</strong>, add it at the end, <strong>Save instructions</strong>.</li>
+      <li><strong>Try again</strong> in a new chat with the same notes.</li>
+    </ol>
+    <div>
+      <div class="timerbox" data-seconds="600" data-checkpoints="240:You should be teaching it a sentence now." data-hint="No notes on hand? Type 3-4 bullets about a real meeting.">
+        <div class="timer">10:00</div>
+        <p class="checkpoint"></p>
+        <button type="button">Start timer</button>
+      </div>
+      <p class="caption" style="margin-top:16px"><strong>Done early?</strong> New chat, same notes, plus "Treat [one number] as missing." Claude should flag the gap, not invent a figure.</p>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Ask in your own words. The Project already knows the job, so "Write my follow-up from these notes" is enough.</li>
+      <li>Notice what it does with gaps: it flags missing info instead of inventing it. That's the rule from the Starter doing its job.</li>
+      <li>Common snags: forgot to attach the notes again in the new chat, didn't save the sentence, pasted the Check it prompt into a new chat (it has to go in the same chat as the draft).</li>
+      <li>At 4:00 left, you should be teaching it a sentence.</li>
+    </ul></aside>
+</section>
+
+<!-- OWN THE OUTPUT -->
+<section class="slide dark" data-at="54" data-block="2. Projects: own the output" data-title="Your name is on it">
+  <h2>Your name is on it</h2>
+  <p>Claude drafts it, but <span class="hl">you own it</span>. Read through it and verify it before you send it. It should be concise, make sense, and sound like you, not like AI. If you couldn't defend it as if you wrote it yourself, it isn't ready.</p>
+  <ol class="steps" style="margin-top:24px">
+    <li><strong>Read it.</strong> All of it, before anyone else has to.</li>
+    <li><strong>Understand it.</strong> If you couldn't explain it, don't send it.</li>
+    <li><strong>Validate it.</strong> Facts, names and numbers match your source. Nothing hallucinated: check what Claude marked as inferred.</li>
+    <li><strong>Make it yours.</strong> Your words, your tone. Cut the filler and the jargon. You'd sign it.</li>
+  </ol>
+  <aside class="notes"><ul>
+      <li>Claude drafts it, and you own it. Anything you send is yours, exactly as if you wrote it.</li>
+      <li>Don't be the person who replies to a coworker with "Claude said:" and a wall of text. They could have asked Claude themselves, and faster.</li>
+      <li>AI writing is often long, plausible and full of jargon. Reading it, checking it and putting it in your own words is the value you add.</li>
+      <li>The test: could you defend every line if someone asked "where did this come from?"</li>
+      <li>Your Project's two rules help. Missing info gets flagged and guesses get marked, so you know exactly where to look.</li>
+      <li>You'll run these 4 checks on your real output next.</li>
+    </ul></aside>
+</section>
+
+<!-- SPRINT 4 -->
+<section class="slide" data-at="56" data-block="2. Projects: Sprint 4" data-title="Sprint 4: use it for real" data-kit>
+  <span class="badge">Sprint 4</span>
+  <h2>Use it for real</h2>
+  <div class="split">
+    <ol class="steps">
+      <li>Pick something you need this week. New chat in your Project, give it the input, ask in your own words.</li>
+      <li>Run the 4 checks: <strong>read it, understand it, validate it, make it yours</strong>. Edit until you'd sign it.</li>
+      <li><strong>Optional:</strong> <strong>Share</strong> (top right of the Project page) with a teammate, <strong>Can view</strong>. They see your instructions and files, not your chats.</li>
+    </ol>
+    <div>
+      <div class="timerbox" data-seconds="660" data-checkpoints="240:Run the 4 checks now." data-hint="Behind? Use this time to finish Sprint 2 or 3.">
+        <div class="timer">11:00</div>
+        <p class="checkpoint"></p>
+        <button type="button">Start timer</button>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><ul>
+      <li>This is the point of the whole thing: one real piece of work you'll actually use this week.</li>
+      <li>No real input today? Use a recent one, or try the "treat a number as missing" test.</li>
+      <li>Sharing is optional. Can view means they can chat with it. Can edit means they can change your instructions and files, which you usually don't want.</li>
+      <li>They get an email, and the Project shows up under Projects, in "Shared with you". Your chats stay private.</li>
+      <li>The kit's Teammate prompt writes a one-line "try this" message to send with it.</li>
+      <li>Behind? A Project with saved instructions is still a win.</li>
+    </ul></aside>
+</section>
+
+<!-- LOOK BACK -->
+<section class="slide" data-at="67" data-block="3. Wrap" data-title="Look back">
+  <h2>Look back at what you built</h2>
+  <p>Answer these for yourself, or with a teammate who built one too. Then borrow their best idea.</p>
+  <ol class="steps" style="margin-top:24px">
+    <li>What does your Project make?</li>
+    <li>One line in your instructions that made a difference.</li>
+    <li>What did the first try get wrong, and how did you improve it?</li>
+  </ol>
+  <aside class="notes"><ul>
+      <li>Running this with a group? Ask two volunteers to share their screen and answer these three questions, about 2 minutes each.</li>
+      <li>The pattern to point out: a good example file and one specific rule do most of the work.</li>
+    </ul></aside>
+</section>
+
+<!-- KEEP IT WORKING -->
+<section class="slide" data-at="69" data-block="3. Wrap" data-title="Keep it working">
+  <h2>Keep it working after today</h2>
+  <p>Keep teaching it: update the files, update the instructions, and let its memory build up. The more you use it, the better it gets.</p>
+  <div class="cols" style="--n:2">
+    <div class="card"><h3>Use it 3 times this week</h3><p>Each time it misses, teach it one sentence.</p></div>
+    <div class="card"><h3>New chat when it drifts</h3><p>Start a new chat instead of arguing with this one.</p></div>
+    <div class="card"><h3>Save great outputs</h3><p>Add them to the Project's files as more examples.</p></div>
+    <div class="card"><h3>Keep it focused</h3><p>A few clearly named files. A new task gets a new Project.</p></div>
+  </div>
+  <aside class="notes"><ul>
+      <li>Most Projects die in week one because nobody opens them again. These four habits keep yours useful.</li>
+      <li>Use it 3 times this week. Every miss is one sentence to teach it.</li>
+      <li>Great output? Save it to the Project's files. More good examples, better results.</li>
+      <li>Keep it focused: a new kind of work gets a new Project.</li>
+      <li>With memory on, the Project's memory builds as you use it too.</li>
+    </ul></aside>
+</section>
+
+<!-- WRAP -->
+<section class="slide dark" data-at="71" data-block="3. Wrap" data-title="You built a working Project">
+  <h2>You built a working Project</h2>
+  <div class="cols" style="--n:3; margin-top:16px">
+    <div class="card"><h3>The kit</h3><p>Every step and prompt: <a data-kitlink style="color:inherit"></a></p></div>
+    <div class="card"><h3>Cheat sheet</h3><p>One printable page: <a href="cheatsheet.html" target="_blank" rel="noopener" style="color:inherit">cheatsheet.html</a></p></div>
+    <div class="card"><h3>More like this</h3><p><a href="https://piermadsen.com" target="_blank" rel="noopener" style="color:inherit">piermadsen.com</a></p></div>
+  </div>
+  <p style="margin-top:32px">Next steps: connect Claude to your real data with <strong>Connectors</strong>, and turn a procedure you repeat into a <strong>Skill</strong>.</p>
+  <aside class="notes"><ul>
+      <li>What you built: a Project with real instructions and your best example, tested, taught once, and used on real work.</li>
+      <li>Next steps: Connectors let Claude read live sources instead of you pasting in a spreadsheet. Projects plus connectors is where this gets powerful. Skills save a procedure so Claude can reuse it anywhere.</li>
+    </ul></aside>
+</section>
+
+<!-- END -->
+<section class="slide dark endcover" data-at="73" data-title="End">
+  <h2>Thanks for building along</h2>
+  <p>Pier Madsen, <a href="https://piermadsen.com" target="_blank" rel="noopener">piermadsen.com</a></p>
+</section>
+
+</div></div>
+
+<div class="nav" aria-label="Slide controls">
+  <button id="prev" type="button">Back</button>
+  <button id="next" type="button">Next</button>
+  <button id="pres" type="button">Presenter view (P)</button>
+  <span>Arrow keys move, T starts a timer, R resets it</span>
+</div>
+
+<!-- Presenter view, shown only with ?presenter -->
+<div class="pv">
+  <div>
+    <h1 id="pv-title"></h1>
+    <div class="meta" id="pv-meta"></div>
+    <div class="cuebox" id="pv-cue"><h2>On your Claude</h2><div></div></div>
+    <div class="notesbox" id="pv-notes"></div>
+  </div>
+  <div class="side">
+    <div class="label">Session clock</div>
+    <div class="big" id="pv-clock">Not started</div>
+    <div id="pv-drift"></div>
+    <div id="pv-timer" style="margin-top:12px"></div>
+    <button id="pv-start" type="button">Start session clock</button>
+    <button id="pv-timerbtn" type="button">Start timer (T)</button>
+    <button id="pv-timerreset" type="button">Reset timer (R)</button>
+    <div class="label">Next slide</div>
+    <div class="next" id="pv-next"></div>
+    <button id="pv-prev" type="button">Back</button>
+    <button id="pv-nextbtn" type="button">Next</button>
+  </div>
+</div>
+
+<script src="deck.js?v=1"></script>
+</body>
+</html>

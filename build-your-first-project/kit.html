@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit: Build Your First Claude Project | Pier Madsen</title>
+<meta name="description" content="Every step and copy-ready prompt for building your first Claude Project: Brain dump prompt, Project Starter, Check it prompt and more.">
+<meta name="author" content="Pier Madsen">
+<style>
+  :root {
+    --ink: #16181D; --ink2: #3A3F47; --accent: #F2A93B; --accent30: #FCE5BD; --pink: #FFC0C2;
+    --grey: #F4F2EF; --line: #DDD8D0; --muted: #5D636B;
+    --display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --nav-h: 56px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: calc(var(--nav-h) + 16px); scrollbar-color: var(--ink2) var(--grey); }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body { margin: 0; font: 16px/1.6 var(--body); color: var(--ink); background: #fff; }
+  ::selection { background: var(--accent30); color: var(--ink); }
+  a { color: var(--ink); text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  strong { font-weight: 700; }
+
+  /* Header */
+  header { background: var(--ink); color: #fff; }
+  header .in { max-width: 820px; margin: 0 auto; padding: 24px 20px 28px; }
+  header .overline { font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  header a { color: var(--accent); }
+  h1 { font: 700 34px/1.1 var(--display); letter-spacing: -0.01em; margin: 8px 0 6px; }
+  header p { margin: 0; color: #D5D8DD; }
+
+  /* Sticky nav: two part buttons, then section links */
+  nav.toc { position: sticky; top: 0; z-index: 5; background: #fff; border-bottom: 1px solid var(--line); }
+  nav.toc .in { max-width: 820px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 6px; overflow-x: auto; white-space: nowrap; min-height: var(--nav-h); scrollbar-width: thin; scrollbar-color: var(--ink2) var(--grey); }
+  nav.toc .in::-webkit-scrollbar { height: 8px; }
+  nav.toc .in::-webkit-scrollbar-track { background: var(--grey); }
+  nav.toc .in::-webkit-scrollbar-thumb { background: var(--ink2); border-radius: 4px; }
+  nav.toc a { flex: none; text-decoration: none; font-size: 14px; font-weight: 700; padding: 7px 11px; border-radius: 4px; color: var(--ink); background: var(--grey); transition: background-color .15s ease-out, color .15s ease-out; }
+  nav.toc a:hover { background: var(--accent30); }
+  nav.toc a.part-link { background: var(--ink); color: #fff; }
+  nav.toc a.part-link:hover { background: var(--ink2); }
+  nav.toc a.part-link:not(:first-child) { margin-left: 14px; }
+  nav.toc a[aria-current="true"] { background: var(--accent); color: var(--ink); }
+  nav.toc a.part-link[aria-current="true"] { background: var(--ink); color: var(--accent); }
+
+  /* Layout and type */
+  main { max-width: 820px; margin: 0 auto; padding: 8px 20px 72px; }
+  .part { font: 700 30px/1.15 var(--display); margin: 56px 0 0; padding: 0 0 12px; border-bottom: 4px solid var(--accent); }
+  .part:first-child { margin-top: 36px; }
+  section { padding-top: 36px; }
+  h3 { font: 700 24px/1.2 var(--display); margin: 0 0 12px; }
+  h3 .time { font: 400 15px var(--body); color: var(--muted); margin-left: 6px; }
+  h4 { font-weight: 700; font-size: 17px; line-height: 1.3; margin: 24px 0 8px; }
+  p { margin: 0 0 12px; max-width: 70ch; }
+  ul { margin: 0 0 16px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  .note { color: var(--muted); font-size: 15px; }
+
+  /* Numbered steps: green squares, same as the slides */
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 4px 0 20px; }
+  ol.steps > li { counter-increment: s; position: relative; padding-left: 42px; margin: 0 0 12px; min-height: 28px; }
+  ol.steps > li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 4px; background: var(--accent); font: 700 15px/28px var(--display); text-align: center; }
+
+  /* Boxes */
+  .box { background: var(--grey); border-radius: 4px; padding: 14px 18px; margin: 16px 0; }
+  .box p:last-child { margin-bottom: 0; }
+  .box.stuck { background: var(--accent30); }
+  .box.warn { background: var(--pink); border: 1px solid #E79A9D; }
+  .box.warn strong:first-child { display: block; font: 700 19px/1.25 var(--display); margin-bottom: 2px; }
+  .ex { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; }
+  .ex dt { font-weight: 700; }
+  .ex dd { margin: 0; }
+
+/* Context: smart zone / dumb zone (same drawing as the slides) */
+.ctx { position: relative; display: grid; grid-template-columns: 170px 1fr; column-gap: 12px; row-gap: 6px; align-items: center; margin: 18px 0 8px; }
+.ctx::after { content: ''; position: absolute; left: calc(182px + (100% - 182px) * 0.65); top: 0; height: 112px; border-left: 2px dashed var(--ink); }
+.ctx-zones { display: grid; grid-template-columns: 65% 35%; height: 28px; font-weight: 700; font-size: 14px; }
+.ctx-zones span { display: flex; align-items: center; padding: 0 10px; }
+.ctx-zones .z-smart { background: var(--accent30); border-radius: 4px 0 0 4px; }
+.ctx-zones .z-dumb { background: var(--pink); border-radius: 0 4px 4px 0; }
+.ctx-lbl { font-weight: 700; font-size: 14px; line-height: 1.3; }
+.ctx-bar { display: flex; gap: 4px; height: 36px; padding: 4px; border: 2px solid var(--ink); border-radius: 4px; background: #fff; }
+.ctx-bar i { display: block; flex: none; border-radius: 3px; border: 1.5px solid var(--ink); }
+.c-setup { background: var(--line); } .c-you { background: #CDE4F5; } .c-reply { background: var(--accent30); } .c-file { background: #E7DCCD; }
+.ctx-bar.mini { height: 28px; padding: 3px; margin: 6px 0 8px; }
+.ctx-bar.mini .c-setup { width: 8%; }
+.ctx-bar.mini .sliver { width: 8px; }
+.ctx-key { display: flex; flex-wrap: wrap; gap: 6px 20px; list-style: none; padding: 0; margin: 10px 0 0; font-size: 14px; }
+.ctx-key li { display: flex; align-items: center; gap: 8px; margin: 0; }
+.ctx-key i { display: block; width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid var(--ink); }
+.ctx-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.ctx-cards .box { margin: 0; }
+.ctx-cards p { font-size: 15px; }
+
+  /* Copyable prompts */
+  .prompt { border: 2px solid var(--ink); border-radius: 4px; margin: 14px 0 24px; overflow: hidden; }
+  .prompt .bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--ink); color: #fff; padding: 6px 6px 6px 14px; }
+  .prompt .bar span { font-weight: 700; font-size: 15px; }
+  .prompt pre { margin: 0; padding: 14px 16px; white-space: pre-wrap; overflow-wrap: anywhere; font: 15px/1.55 var(--body); background: #fff; }
+  button.copy { font: 700 15px var(--body); background: var(--accent); color: var(--ink); border: 0; border-radius: 4px; padding: 0 18px; min-height: 44px; min-width: 88px; cursor: pointer; transition: background-color .15s ease-out; }
+  button.copy:hover { background: var(--accent30); }
+  button.copy.done { background: #fff; }
+
+  /* Tables */
+  .wrap { overflow-x: auto; margin: 8px 0 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th { background: var(--grey); font-weight: 700; }
+  td:first-child { font-weight: 700; }
+  tr.pick td { background: #FFF8EA; }
+
+
+  footer { border-top: 1px solid var(--line); }
+  footer .in { max-width: 820px; margin: 0 auto; padding: 16px 20px 32px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    .part { font-size: 25px; margin-top: 44px; }
+    h3 { font-size: 21px; }
+    th, td { padding: 8px 6px; font-size: 14px; }
+    .ex { grid-template-columns: 1fr; gap: 2px; }
+    .ex dd { margin-bottom: 8px; }
+    .ctx, .ctx-cards { grid-template-columns: 1fr; }
+    .ctx > span:first-child, .ctx::after { display: none; }
+  }
+  @media print { nav.toc, button.copy { display: none; } .part { break-before: page; } }
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <span class="overline">The kit</span>
+  <h1>Build your first Claude Project</h1>
+  <p>Every step and prompt from the <a href="./">slides</a>. Keep this open next to Claude.</p>
+</div></header>
+
+<nav class="toc" aria-label="Kit sections"><div class="in">
+  <a class="part-link" href="#part1">Part 1: Basics</a>
+  <a href="#models">Models</a>
+  <a href="#effort">Effort</a>
+  <a href="#prompts">Prompts</a>
+  <a href="#braindump">Brain dump</a>
+  <a href="#context">Context</a>
+  <a href="#memory">Memory</a>
+  <a class="part-link" href="#part2">Part 2: Projects</a>
+  <a href="#menu">Build menu</a>
+  <a href="#s1">Sprint 1</a>
+  <a href="#s2">Sprint 2</a>
+  <a href="#s3">Sprint 3</a>
+  <a href="#own">4 checks</a>
+  <a href="#s4">Sprint 4</a>
+</div></nav>
+
+<main>
+
+<h2 class="part" id="part1">Part 1: Claude basics</h2>
+
+<section id="models">
+  <h3>Pick a model</h3>
+  <p>Click the model name next to the send button. Claude keeps your last pick.</p>
+  <div class="wrap"><table>
+    <tr><th>Model</th><th>Speed and cost</th><th>Use it for</th></tr>
+    <tr><td>Haiku</td><td>Fastest, cheapest</td><td>Light work: fix a sentence, summarize an email, reformat a list.</td></tr>
+    <tr class="pick"><td>Sonnet</td><td>Balanced</td><td>Everyday, non-technical work: draft an email or recap, summarize a document, answer questions about a file. Start here.</td></tr>
+    <tr><td>Opus</td><td>Slower, smarter, uses more</td><td>Complex, technical work and analysis: a long report, a big spreadsheet, a plan with many steps.</td></tr>
+    <tr><td>Fable</td><td>Slowest, "smartest", burns through usage</td><td>Only the toughest problems, when Opus can't get there.</td></tr>
+  </table></div>
+  <p class="note">See how much you've used ($) in Settings, then Usage.</p>
+</section>
+
+<section id="effort">
+  <h3>Set the effort</h3>
+  <p>Effort is how much Claude thinks before it answers. It's in the same menu, under <strong>Effort</strong>. Leave it on High.</p>
+  <ul>
+    <li>Slow or long-winded? Drop to Medium or Low for routine work. It's faster and uses less.</li>
+    <li>Shallow answer to a hard problem? Try Extra high before you rewrite the prompt.</li>
+    <li>Avoid Max, even for technical work. It's very slow, and Claude can overthink and give you a worse answer.</li>
+  </ul>
+</section>
+
+<section id="prompts">
+  <h3>Write a good prompt</h3>
+  <ol class="steps">
+    <li><strong>Set the stage:</strong> who you are, your goal, the background.</li>
+    <li><strong>Define the task:</strong> exactly what you want.</li>
+    <li><strong>Set the rules:</strong> length, tone, format, and an example if you have one.</li>
+  </ol>
+  <dl class="box ex">
+    <dt>Weak</dt><dd>"Write an invite email for our next AI lunch-and-learn."</dd>
+    <dt>Better</dt><dd>"I run a monthly lunch-and-learn on AI tools for about 30 coworkers, most of them new to AI. Write the invite email for next month's session on Claude Projects. Under 120 words, friendly and plain, no hype. Start with what they'll be able to do afterward, then the date and the meeting link."</dd>
+  </dl>
+
+  <h4>When the result is off</h4>
+  <div class="wrap"><table>
+    <tr><th>If it's</th><th>Do this</th></tr>
+    <tr><td>Too generic</td><td>Say who it's for, your role and your limits.</td></tr>
+    <tr><td>The wrong length</td><td>Give a length: "under 120 words", "3 bullets".</td></tr>
+    <tr><td>The wrong format</td><td>Paste an example of what you want.</td></tr>
+    <tr><td>The wrong tone</td><td>Describe it plainly ("friendly, not salesy") and add an example.</td></tr>
+    <tr><td>Confident but wrong</td><td>Check it. Ask where it got that, or what it's unsure about.</td></tr>
+  </table></div>
+  <p>Treat the first draft as a starting point and say exactly what to change. "Under 120 words" works better than "make it shorter".</p>
+</section>
+
+<section id="braindump">
+  <h3>Brain dump <span class="time">5 minutes</span></h3>
+  <p>For big or fuzzy tasks: dump everything in one chat, let Claude interview you and write the prompt, then paste that prompt into a new chat.</p>
+  <ol class="steps">
+    <li>Start a new chat with <strong>Chat</strong> selected, not Cowork. Paste the Brain dump prompt.</li>
+    <li>Under "My brain dump:", write everything about a task you need to do this week. Messy is fine. Shift+Enter adds a line, and dictation works too.</li>
+    <li>Answer Claude's questions. "You decide" is a fine answer.</li>
+    <li>Click <strong>Copy</strong> on the prompt Claude writes. Open a new chat, paste it and send.</li>
+  </ol>
+  <div class="prompt">
+    <div class="bar"><span>Brain dump prompt</span><button class="copy" type="button">Copy</button></div>
+<pre>I'm going to brain dump about a task I need to do. It will be messy. Don't do the task yet. First, interview me to fill the gaps:
+- Ask one question at a time, then wait for my answer.
+- Start each question with your best guess, so I can just confirm or correct it.
+- Ask about what matters most first: my goal, who it's for, what done looks like, and anything I haven't decided yet.
+- Stop when you have enough. Aim for 6 to 8 questions at most, and never ask more than 10.
+- If I say "you decide", make a decision, say what you chose and why in one short line, and continue.
+- If I say "write it now", stop asking and write the prompt.
+
+Then list any assumptions you made in one line, so I can fix them. After that, write a prompt I can paste into a new chat to get the work done. Use three parts: set the stage (who I am, my goal, the background), the task, and the rules (length, tone, format). Put only the finished prompt inside one code block, so I can copy it with one click.
+
+My brain dump:
+</pre>
+  </div>
+  <p class="note">Use it a lot? Save it somewhere handy, or turn it into a Skill.</p>
+</section>
+
+<section id="context">
+  <h3>Context</h3>
+  <p>Your messages, Claude's replies and your files all take up room in a chat's context, Claude's working memory. Back-and-forth is fine, but once a chat is mostly full, Claude gets worse at using it. AI Hero calls these the smart zone and the dumb zone.</p>
+  <div class="ctx" role="img" aria-label="Two chats. A normal back-and-forth chat stays in the smart zone. A very long chat with big files runs past the line into the dumb zone.">
+    <span></span><div class="ctx-zones"><span class="z-smart">Smart zone</span><span class="z-dumb">Dumb zone</span></div>
+    <span class="ctx-lbl">Normal back-and-forth</span>
+    <div class="ctx-bar"><i class="c-setup" style="width:5%"></i><i class="c-you" style="width:6%"></i><i class="c-reply" style="width:9%"></i><i class="c-you" style="width:5%"></i><i class="c-reply" style="width:10%"></i><i class="c-you" style="width:4%"></i><i class="c-reply" style="width:8%"></i></div>
+    <span class="ctx-lbl">Very long chat, big files</span>
+    <div class="ctx-bar"><i class="c-setup" style="width:5%"></i><i class="c-file" style="width:20%"></i><i class="c-you" style="width:5%"></i><i class="c-reply" style="width:11%"></i><i class="c-you" style="width:5%"></i><i class="c-reply" style="width:12%"></i><i class="c-you" style="width:4%"></i><i class="c-reply" style="width:12%"></i></div>
+  </div>
+  <ul class="ctx-key">
+    <li><i class="c-setup"></i>Setup: instructions, memory</li>
+    <li><i class="c-you"></i>Your messages</li>
+    <li><i class="c-reply"></i>Claude's replies</li>
+    <li><i class="c-file"></i>Files</li>
+  </ul>
+  <div class="ctx-cards">
+    <div class="box"><strong>Compacting</strong><div class="ctx-bar mini"><i class="c-setup"></i><i class="c-file sliver"></i><i class="c-you sliver"></i><i class="c-reply sliver"></i></div><p>When a chat gets very long, Claude summarizes the older messages and shows "organizing its thoughts". Details can get lost, and long chats use more of your allowance.</p></div>
+    <div class="box stuck"><strong>New chat</strong><div class="ctx-bar mini"><i class="c-setup"></i></div><p>A clean start, back in the smart zone. If Claude starts forgetting what you told it, start a new chat and bring only what matters.</p></div>
+  </div>
+</section>
+
+<section id="memory">
+  <h3>Turn on memory <span class="time">3 minutes</span></h3>
+  <p>With memory on, Claude remembers things like your role, your work and how you like things written, and brings them into new chats. Depending on your plan, it may be off until you turn it on.</p>
+  <ol class="steps">
+    <li>Click your name or initials (bottom left), then <strong>Settings</strong>.</li>
+    <li>Open <strong>Memory</strong>.</li>
+    <li>Turn on <strong>Generate memory from chats</strong>.</li>
+    <li>Open <strong>Topics</strong> and delete anything wrong or out of date. To add something, tell Claude "Remember that..." in any chat.</li>
+  </ol>
+  <p>To keep one chat out of memory, click <strong>+</strong> in a new chat's message box and switch <strong>Memory</strong> off before your first message.</p>
+  <p class="note">Memory knows you loosely, in every chat. A Project knows one job exactly, from your instructions and your best example. Each Project also has its own memory.</p>
+</section>
+
+<h2 class="part" id="part2">Part 2: Build your first Project</h2>
+
+<div class="box stuck">
+  <p><strong>Before you start:</strong> save two files in one folder: a good example of something you make often, and the starting point for the next one. Pick from the build menu below if you need an idea.</p>
+</div>
+
+<section id="menu">
+  <h3>Build menu</h3>
+  <p>Bring your own idea, or take the first row if you're not sure. You need a good example (uploaded in Sprint 1) and a starting point for the next one (used in Sprint 3).</p>
+  <div class="wrap"><table>
+    <tr><th>What you make</th><th>Good example (Sprint 1)</th><th>Starting point (Sprint 3)</th><th>Starter wording (Sprint 2)</th></tr>
+    <tr class="pick"><td>Email writing assistant (not sure? pick this)</td><td>3 emails you've sent, in one Word doc</td><td>Notes from a real meeting this week, or 3-4 bullets about it</td><td>follow-up emails after my meetings</td></tr>
+    <tr><td>Monthly client recap</td><td>A recap you sent and liked</td><td>This month's totals for one account</td><td>my monthly performance recap email to a client</td></tr>
+    <tr><td>Call follow-up</td><td>A follow-up you liked</td><td>Notes from a recent call</td><td>follow-up emails after client calls</td></tr>
+    <tr><td>Weekly update</td><td>One past update</td><td>This week's rough bullets</td><td>my weekly update to my manager</td></tr>
+    <tr><td>Month-end commentary</td><td>Last month's commentary</td><td>This month's summary numbers</td><td>month-end variance commentary</td></tr>
+    <tr><td>Process explainer</td><td>Any write-up of the process, even rough</td><td>A question a new person asked you</td><td>answers to new teammates' questions about my process</td></tr>
+  </table></div>
+  <p><strong>Using work files?</strong> Follow your company's AI policy, and leave out personal details about customers. Emails: copy only the part you wrote into a Word doc. Screenshots and saved Outlook .msg files won't work.</p>
+</section>
+
+<section id="s1">
+  <h3>Sprint 1: Create the Project</h3>
+  <div class="box warn"><p><strong>Don't click "Use a folder."</strong> It makes a local Project that only lives on your computer, and you can't share it.</p></div>
+  <ol class="steps">
+    <li>In the Claude desktop app, click <strong>Projects</strong> in the left sidebar. No sidebar? Click the icon at the top left.</li>
+    <li>Click <strong>New Project</strong> and name it. Leave Visibility on <strong>Private</strong> and click <strong>Create project</strong>.</li>
+    <li>Next to <strong>Context</strong>, click <strong>+</strong>, then <strong>Upload from device</strong>. Upload your good example, plus a template if you have one.</li>
+    <li>Keep your starting point for Sprint 3.</li>
+    <li>See a customer's personal details in the file? Delete them and save, or pick a different example.</li>
+  </ol>
+  <p class="note">PDF, Word, CSV, Excel and text files all work. If the page says "Local projects are only available on this computer", you clicked "Use a folder". Make a new Project without it.</p>
+</section>
+
+<section id="s2">
+  <h3>Sprint 2: Have AI write your instructions</h3>
+  <ol class="steps">
+    <li>On your Project page, select <strong>Chat</strong> in the message box. It may be set to Cowork.</li>
+    <li>Paste the Project Starter. Before you send, replace <strong>[WHAT YOU MAKE]</strong> with your wording from the <a href="#menu">build menu</a>, like "my weekly update to my manager".</li>
+    <li>Answer Claude's questions one at a time. "You decide" is fine.</li>
+    <li>Click <strong>Copy</strong> on the box with your instructions.</li>
+    <li>Click your Project's name at the top. Click <strong>+</strong> next to <strong>Instructions</strong>, paste, and click <strong>Save instructions</strong>.</li>
+  </ol>
+  <p class="note">This Starter is one good way to write instructions, not the only one. Change the headings or bullets to fit your work.</p>
+  <div class="prompt">
+    <div class="bar"><span>Project Starter</span><button class="copy" type="button">Copy</button></div>
+<pre>I'm setting up this Claude Project for one thing I make over and over: [WHAT YOU MAKE].
+
+Read the files in this Project first. Then interview me to write the Project instructions:
+- Ask one question at a time, then wait for my answer.
+- Start each question with your best guess, based on my files and how this kind of work is usually done, so I can just confirm or correct it.
+- Ask about what matters most first: who it's for, what good looks like, and anything my files don't show.
+- Ask as few questions as you can to get the full picture. Aim for 6 to 8 at most, and never ask more than 10.
+- If I say "you decide", make a decision, say what you chose and why in one short line, and continue.
+
+Then write my instructions in plain text. Use these exact headings (the words before each colon), each on its own line, with no markdown symbols:
+Context: who I am, what this is for, and who reads it.
+Process: the steps you follow, in order.
+Tone and format: how it should sound and look, based on my examples.
+Specific requirements: 3 to 5 rules, each with a short reason. Include these two word for word, each followed by a reason: "If information is missing, say so and ask. Never invent numbers or facts." and "Mark anything you inferred."
+When I give you: what I'll usually give you, and what you do with it.
+
+Put only the finished instructions inside one code block, so I can copy them with one click. Nothing else inside the block, and no other code blocks or sample drafts.</pre>
+  </div>
+</section>
+
+<section id="s3">
+  <h3>Sprint 3: Use it, check it, teach it</h3>
+  <ol class="steps">
+    <li><strong>Use it.</strong> Start a new chat in your Project with <strong>Chat</strong> selected. Paste your notes, or attach the file with <strong>+</strong>. No notes? Type 3-4 bullets about a real meeting this week. Then ask for the thing in your own words (examples below).</li>
+    <li><strong>Read it.</strong> Check the facts, names, dates and numbers against your notes.</li>
+    <li><strong>Check it.</strong> Paste the Check it prompt in the same chat. Claude checks accuracy, compares the draft with your example, and writes one sentence for your instructions.</li>
+    <li><strong>Teach it.</strong> Copy that sentence. Click your Project's name, click <strong>+</strong> next to <strong>Instructions</strong>, add the sentence at the end and click <strong>Save instructions</strong>.</li>
+    <li><strong>Try again</strong> in a new chat with the same notes, since a new chat doesn't remember the old one. Still not right? Check it once more and add a second sentence.</li>
+  </ol>
+
+  <h4>Ask it like this</h4>
+  <div class="wrap"><table>
+    <tr><th>Your build</th><th>Ask, for example</th></tr>
+    <tr><td>Email writing assistant</td><td>"Write my follow-up email from these notes:" then your notes</td></tr>
+    <tr><td>Monthly client recap</td><td>"Write this month's recap from these totals."</td></tr>
+    <tr><td>Call follow-up</td><td>"Write my follow-up from these call notes."</td></tr>
+    <tr><td>Weekly update</td><td>"Write my weekly update from these bullets."</td></tr>
+    <tr><td>Month-end commentary</td><td>"Write this month's commentary from these numbers."</td></tr>
+    <tr><td>Process explainer</td><td>"A new teammate asked: [question]. Answer it the way I would."</td></tr>
+  </table></div>
+  <p class="note">Shift+Enter adds a line. Enter sends.</p>
+
+  <div class="prompt"><div class="bar"><span>Check it prompt</span><button class="copy" type="button">Copy</button></div><pre>Check your latest draft in two ways:
+1. Accuracy: is every fact, name, date and number backed by what I gave you? List anything that isn't.
+2. Match: compare it to the examples in this Project's files. List up to 3 differences that matter most. If it already matches well, say so. Don't look for differences that aren't there.
+Then write one sentence I should add to the Project instructions to fix the most important problem you listed. Put only that sentence in a code block so I can copy it.</pre></div>
+  <p class="note">Don't over-check. Once or twice is enough. If you keep asking Claude to find problems, it starts inventing them and the draft gets worse.</p>
+
+  <p><strong>Done early?</strong> In a new chat, give it the same notes plus "Treat [one number] as missing." Claude should flag the gap instead of making up a number.</p>
+</section>
+
+<section id="own">
+  <h3>Your name is on it: 4 checks</h3>
+  <p>Claude drafts it, and you own it. Read it and verify it before you send it. It should be short, make sense and sound like you. If you couldn't defend it as your own work, it isn't ready.</p>
+  <ol class="steps">
+    <li><strong>Read it,</strong> all of it.</li>
+    <li><strong>Understand it.</strong> If you couldn't explain it, don't send it.</li>
+    <li><strong>Validate it.</strong> Facts, names and numbers match your source. Check anything Claude marked as inferred.</li>
+    <li><strong>Make it yours.</strong> Your words and tone, no filler or jargon. You'd sign it.</li>
+  </ol>
+</section>
+
+<section id="s4">
+  <h3>Sprint 4: Use it for real</h3>
+  <ol class="steps">
+    <li>Pick something you need this week that your Project makes. Start a new chat, give it the input and ask in your own words.</li>
+    <li>Run the 4 checks and edit until you'd sign it.</li>
+    <li><strong>Optional:</strong> click <strong>Share</strong> (top right of the Project page) and add a teammate. They see your instructions and files, not your chats, and it appears in their Projects under <strong>Shared with you</strong>. Then paste the Teammate prompt and send them the one-liner.
+      <ul>
+        <li><strong>Can view:</strong> they can see the Project and chat with it. Pick this one.</li>
+        <li><strong>Can edit:</strong> they can change your instructions and files. Usually you don't want that.</li>
+      </ul></li>
+  </ol>
+  <div class="prompt"><div class="bar"><span>Teammate prompt (optional)</span><button class="copy" type="button">Copy</button></div><pre>Write the shortest prompt a teammate could use with this Project: one sentence, with one [blank] for what they paste in. Put only that prompt in a code block so I can copy it.</pre></div>
+</section>
+
+
+</main>
+
+<footer><div class="in">
+  <span><a href="./">Slides</a> &middot; <a href="cheatsheet.html">Cheat sheet</a></span>
+  <span>By Pier Madsen, <a href="https://piermadsen.com">piermadsen.com</a></span>
+</div></footer>
+
+<script>
+  // Copy buttons
+  document.querySelectorAll('button.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.closest('.prompt').querySelector('pre').innerText;
+      let ok = true;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (err) {
+        // Fallback for browsers that block the clipboard API
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        ok = document.execCommand('copy');
+        ta.remove();
+      }
+      btn.textContent = ok ? 'Copied' : 'Select and copy';
+      btn.classList.toggle('done', ok);
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 2000);
+    });
+  });
+
+  // Highlight the part and section you're reading, and keep its link in view
+  (() => {
+    const links = [...document.querySelectorAll('nav.toc a[href^="#"]')];
+    const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const part2 = document.getElementById('part2');
+    if (!('IntersectionObserver' in window) || !targets.length || !part2) return;
+    const bar = document.querySelector('nav.toc .in');
+    const partOf = el => (part2.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) || el === part2 ? 'part2' : 'part1';
+    let current = null;
+    const setCurrent = id => {
+      const el = document.getElementById(id);
+      if (!el || id === current) return;
+      current = id;
+      const part = partOf(el);
+      links.forEach(a => {
+        const href = a.getAttribute('href').slice(1);
+        const on = href === id || href === part;
+        if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        // Slide only the nav bar sideways to keep the current link in view. Never scroll the page.
+        if (href === id) {
+          const left = a.offsetLeft - bar.offsetLeft, right = left + a.offsetWidth;
+          if (left < bar.scrollLeft || right > bar.scrollLeft + bar.clientWidth) bar.scrollLeft = left - 20;
+        }
+      });
+    };
+    const io = new IntersectionObserver(entries => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-80px 0px -60% 0px' });
+    targets.forEach(t => io.observe(t));
+  })();
+</script>
+</body>
+</html>
